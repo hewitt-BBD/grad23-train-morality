@@ -35,8 +35,9 @@ img {
   margin-bottom: 20px;
 }
 
-#answer1, #answer2 {
+input[type="radio"]  {
   width: 20px;
+  height: 20px;
 }
 
 .multiple-choice label {
@@ -54,9 +55,9 @@ img {
   border: 2px solid black;
   border-radius: 15px;
   margin: 0 0 10px 0;
-  background-color: #bdbbbb;
+  background-color: #d7d7d7;
   padding: 15px 20px 15px 20px;
-  width: 40%;
+  width: 60%;
   display: flex;
   justify-content: start;
 }

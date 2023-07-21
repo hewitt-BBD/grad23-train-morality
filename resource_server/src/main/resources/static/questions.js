@@ -1,9 +1,25 @@
 const previousBtn = document.getElementById('previous-btn');
 const nextBtn = document.getElementById('next-btn');
+const answerChoice1 = document.getElementById('answer1');
+const answerChoice2 = document.getElementById('answer2');
 
 let questionIndex = 1;
+let answers = [];
+
+function getCurrentSelection() {
+
+  if (answerChoice1.checked) {
+    answers[questionIndex] = 'Option 1';
+  } else if (answerChoice2.checked) {
+    answers[questionIndex] = 'Option 2';
+  }
+
+  console.log(answers);
+}
 
 previousBtn.addEventListener('click', () => {
+
+  getCurrentSelection();
 
   if (questionIndex !== 1) {
     questionIndex--;
@@ -14,8 +30,25 @@ previousBtn.addEventListener('click', () => {
 
 nextBtn.addEventListener('click', () => {
 
-  if (questionIndex < 5) {
+  getCurrentSelection();
+
+  if (questionIndex < 4) {
     questionIndex++;
+  } else if (questionIndex === 4) {
+
+    if (!Array.isArray(answers) || answers.length < 1) {
+      alert('Missing answers');
+      return;
+    }
+
+    for (let i = 1; i < answers.length; i++) {
+      if (!answers[i]) {
+        alert('Missing answers');
+        return;
+      }
+    }
+
+    window.location.href = 'Statistics.html';
   }
 
   updateQuestion();
@@ -40,9 +73,27 @@ const questions = [
     questionImg: 'question2.jpg',
     options: ['Divert the train to save the innocent person, allowing the criminal to escape?',
       'Let the trains continue on their current tracks, risking the life of the innocent person to ensure the criminal is caught?',],
+  },
+  {
+    question: `Question 3 goes here`,
+    questionImg: 'question1.png',
+    options: ['Divert the train to save the innocent person, allowing the criminal to escape?',
+      'Let the trains continue on their current tracks, risking the life of the innocent person to ensure the criminal is caught?',],
+  },
+  {
+    question: `Question 4 goes here`,
+    questionImg: 'question2.jpg',
+    options: ['Divert the train to save the innocent person, allowing the criminal to escape?',
+      'Let the trains continue on their current tracks, risking the life of the innocent person to ensure the criminal is caught?',],
   }];
 
 function updateQuestion() {
+
+  if (questionIndex === 4) {
+    nextBtn.textContent = 'Submit';
+  } else {
+    nextBtn.textContent = 'Next';
+  }
 
   const questionHeading = document.querySelector('#middle-section h1');
   questionHeading.textContent = questions[questionIndex - 1].question;

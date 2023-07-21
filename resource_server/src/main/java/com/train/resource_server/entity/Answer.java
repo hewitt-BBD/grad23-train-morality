@@ -2,6 +2,7 @@ package com.train.resource_server.entity;
 
 import jakarta.persistence.*;
 
+
 @Entity
 public class Answer {
 
@@ -15,7 +16,7 @@ public class Answer {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "QuestionID")
+    @JoinColumn(name = "QuestionID") // Ensure the case matches the actual column name in the QuestionBank table.
     private QuestionBank question;
 
     @ManyToOne

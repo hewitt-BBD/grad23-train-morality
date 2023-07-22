@@ -7,7 +7,7 @@ CREATE TABLE Users (
 -- Create the QuestionBank table
 CREATE TABLE QuestionBank (
     QuestionID INT PRIMARY KEY,
-    QuestionText TEXT
+    QuestionText varchar(800)
 );
 
 -- Create the Choice table
@@ -40,9 +40,9 @@ CREATE TABLE QuestionChoice (
 -- Insert sample data into the Users table
 INSERT INTO Users (UserID, Username)
 VALUES
-    (101, 'Alice'),
-    (102, 'Bob'),
-    (103, 'Charlie');
+    (101, 'something@gmail.com', 'Alice'),
+    (102,  'something@gmail.com', 'Bob'),
+    (103,  'something@gmail.com','Charlie');
 
 -- Insert sample data into the QuestionBank table
 INSERT INTO QuestionBank (QuestionID, QuestionText)
@@ -69,12 +69,12 @@ INSERT INTO Answer (AnswerID, UserID, QuestionID, ChoiceID)
 VALUES
     (1, 101, 1, 1),
     (2, 102, 1, 2),
-    (3, 103, 2, 1),
-    (4, 101, 2, 2),
+    (3, 103, 2, 3),
+    (4, 101, 2, 3),
     (5, 103, 1, 1),
-    (6, 101, 3, 1),
-    (7, 102, 3, 2),
-    (8, 103, 3, 2);
+    (6, 101, 3, 5),
+    (7, 102, 3, 6),
+    (8, 103, 3, 6);
 
 -- Insert sample data into the QuestionChoice table
 INSERT INTO QuestionChoice (QuestionID, ChoiceID)
@@ -87,6 +87,13 @@ VALUES
     (3, 6),
     (4, 7),
     (4, 8);
+
+
+
+
+
+
+
 
 
 -- POTENTIALLY USEFUL QUERIES

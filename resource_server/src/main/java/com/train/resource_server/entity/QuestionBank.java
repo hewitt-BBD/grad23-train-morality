@@ -12,5 +12,23 @@ public class QuestionBank {
     @Column(name = "QuestionText", length = 800)
     private String questionText;
 
-    // Constructors, getters, setters, etc.
+    public QuestionBank() {
+
+    }
+
+    public Integer getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
 }

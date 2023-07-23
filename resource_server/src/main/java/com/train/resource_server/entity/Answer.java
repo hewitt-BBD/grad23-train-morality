@@ -13,15 +13,49 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(name = "UserID")
-    private User user;
+    private Users user;
 
     @ManyToOne
-    @JoinColumn(name = "QuestionID") // Ensure the case matches the actual column name in the QuestionBank table.
+    @JoinColumn(name = "QuestionID")
     private QuestionBank question;
 
     @ManyToOne
     @JoinColumn(name = "ChoiceID")
     private Choice choice;
 
-    // Constructors, getters, setters, etc.
+    public Answer() {
+    }
+
+    // Getters and Setters
+    public Long getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(Long answerId) {
+        this.answerId = answerId;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public QuestionBank getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(QuestionBank question) {
+        this.question = question;
+    }
+
+    public Choice getChoice() {
+        return choice;
+    }
+
+    public void setChoice(Choice choice) {
+        this.choice = choice;
+    }
 }

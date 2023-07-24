@@ -1,5 +1,5 @@
 CREATE TABLE Users (
-    UserID INT PRIMARY KEY,
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
     Username VARCHAR(255),
     EmailAddress VARCHAR(255)
 );
@@ -38,11 +38,11 @@ CREATE TABLE QuestionChoice (
 
 
 -- Insert sample data into the Users table
-INSERT INTO Users (UserID, Username, EmailAddress)
+INSERT INTO Users (Username, EmailAddress)
 VALUES
-    (101, 'Alice', 'something@gmail.com'),
-    (102, 'Bob', 'something@gmail.com'),
-    (103,  'Charlie', 'something@gmail.com');
+    ('Alice', 'something@gmail.com'),
+    ('Bob', 'something@gmail.com'),
+    ('Charlie', 'something@gmail.com');
 
 -- Insert sample data into the QuestionBank table
 INSERT INTO QuestionBank (QuestionID, QuestionText)
@@ -67,14 +67,14 @@ VALUES
 -- Insert sample data into the Answer table
 INSERT INTO Answer (UserID, QuestionID, ChoiceID)
 VALUES
-    (101, 1, 1),
-    (102, 1, 2),
-    (103, 2, 3),
-    (101, 2, 3),
-    (103, 1, 1),
-    (101, 3, 5),
-    (102, 3, 6),
-    (103, 3, 6);
+    (1, 1, 1),
+    (2, 1, 2),
+    (3, 2, 3),
+    (1, 2, 3),
+    (3, 1, 1),
+    (1, 3, 5),
+    (2, 3, 6),
+    (3, 3, 6);
 
 -- Insert sample data into the QuestionChoice table
 INSERT INTO QuestionChoice (QuestionID, ChoiceID)

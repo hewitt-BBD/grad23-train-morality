@@ -13,6 +13,7 @@ import java.io.Serializable;
 
 @Entity
 @IdClass(QuestionChoiceId.class) // Composite primary key class (see below)
+@Table(name = "questionchoice")
 public class QuestionChoice {
 
     @Id

@@ -19,7 +19,7 @@ CREATE TABLE Choice (
 
 -- Create the Answer table
 CREATE TABLE Answer (
-    AnswerID INT PRIMARY KEY,
+    AnswerID BIGINT AUTO_INCREMENT PRIMARY KEY,
     UserID INT,
     QuestionID INT,
     ChoiceID INT,
@@ -38,11 +38,11 @@ CREATE TABLE QuestionChoice (
 
 
 -- Insert sample data into the Users table
-INSERT INTO Users (UserID, Username)
+INSERT INTO Users (UserID, Username, EmailAddress)
 VALUES
-    (101, 'something@gmail.com', 'Alice'),
-    (102,  'something@gmail.com', 'Bob'),
-    (103,  'something@gmail.com','Charlie');
+    (101, 'Alice', 'something@gmail.com'),
+    (102, 'Bob', 'something@gmail.com'),
+    (103,  'Charlie', 'something@gmail.com');
 
 -- Insert sample data into the QuestionBank table
 INSERT INTO QuestionBank (QuestionID, QuestionText)
@@ -65,16 +65,16 @@ VALUES
     (8, 'B', 'Force someone else');
 
 -- Insert sample data into the Answer table
-INSERT INTO Answer (AnswerID, UserID, QuestionID, ChoiceID)
+INSERT INTO Answer (UserID, QuestionID, ChoiceID)
 VALUES
-    (1, 101, 1, 1),
-    (2, 102, 1, 2),
-    (3, 103, 2, 3),
-    (4, 101, 2, 3),
-    (5, 103, 1, 1),
-    (6, 101, 3, 5),
-    (7, 102, 3, 6),
-    (8, 103, 3, 6);
+    (101, 1, 1),
+    (102, 1, 2),
+    (103, 2, 3),
+    (101, 2, 3),
+    (103, 1, 1),
+    (101, 3, 5),
+    (102, 3, 6),
+    (103, 3, 6);
 
 -- Insert sample data into the QuestionChoice table
 INSERT INTO QuestionChoice (QuestionID, ChoiceID)

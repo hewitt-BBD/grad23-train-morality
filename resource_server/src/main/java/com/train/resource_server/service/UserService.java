@@ -2,20 +2,27 @@ package com.train.resource_server.service;
 
 import com.train.resource_server.entity.Users;
 import com.train.resource_server.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
+    private final UserRepository userRepo;
 
-    @Autowired
     public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+        this.userRepo = userRepository;
     }
 
-    public Users getUserById(Integer userId) {
+    public List<Users> getAllUsers() {
+        return userRepo.getAllUsers();
+    }
 
-        return userRepository.findById(userId).orElse(null);
+    public Users getUserById(int id) {
+        return userRepo.findById(id).orElse(null);
+    }
+
+    public Users createUser(Users user) {
+        return userRepo.save(user);
     }
 }

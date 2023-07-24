@@ -3,6 +3,7 @@ package com.train.resource_server.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="QuestionBank")
 public class QuestionBank {
 
     @Id

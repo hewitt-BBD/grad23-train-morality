@@ -10,10 +10,10 @@ public class Choice {
     @Column(name = "ChoiceID")
     private Integer choiceId;
 
-    @Column(name = "ChoiceValue", length = 20)
+    @Column(name = "choice_value", length = 20)
     private String choiceValue;
 
-    @Column(name = "ChoiceText", length = 255)
+    @Column(name = "choice_text", length = 255)
     private String choiceText;
 
     public Choice() {

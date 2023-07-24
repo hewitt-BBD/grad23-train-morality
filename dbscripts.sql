@@ -1,20 +1,20 @@
 CREATE TABLE Users (
     UserID INT PRIMARY KEY,
-    Username VARCHAR(255),
-    EmailAddress VARCHAR(255)
+    username VARCHAR(255),
+    email_address VARCHAR(255)
 );
 
 -- Create the QuestionBank table
-CREATE TABLE QuestionBank (
+CREATE TABLE question_bank (
     QuestionID INT PRIMARY KEY,
-    QuestionText varchar(800)
+    question_text varchar(800)
 );
 
 -- Create the Choice table
 CREATE TABLE Choice (
     ChoiceID INT PRIMARY KEY,
-    ChoiceValue Varchar(20),
-    ChoiceText VARCHAR(255)
+    choice_value Varchar(20),
+    choice_text VARCHAR(255)
 );
 
 -- Create the Answer table
@@ -24,7 +24,7 @@ CREATE TABLE Answer (
     QuestionID INT,
     ChoiceID INT,
     FOREIGN KEY (UserID) REFERENCES Users (UserID),
-    FOREIGN KEY (QuestionID) REFERENCES QuestionBank (QuestionID),
+    FOREIGN KEY (QuestionID) REFERENCES question_bank (QuestionID),
     FOREIGN KEY (ChoiceID) REFERENCES Choice (ChoiceID)
 );
 
@@ -32,20 +32,20 @@ CREATE TABLE Answer (
 CREATE TABLE QuestionChoice (
     QuestionID INT,
     ChoiceID INT,
-    FOREIGN KEY (QuestionID) REFERENCES QuestionBank (QuestionID),
+    FOREIGN KEY (QuestionID) REFERENCES question_bank (QuestionID),
     FOREIGN KEY (ChoiceID) REFERENCES Choice (ChoiceID)
 );
 
 
 -- Insert sample data into the Users table
-INSERT INTO Users (UserID, Username, EmailAddress)
+INSERT INTO Users (UserID, Username, email_address)
 VALUES
     (101, 'Alice', 'something@gmail.com'),
     (102, 'Bob', 'something@gmail.com'),
     (103,  'Charlie', 'something@gmail.com');
 
 -- Insert sample data into the QuestionBank table
-INSERT INTO QuestionBank (QuestionID, QuestionText)
+INSERT INTO question_bank (QuestionID, question_text)
 VALUES
     (1, 'A train carrying hundreds of passengers is speeding out of control down the tracks. Ahead, there are five people tied to the rails who will be killed if the train continues its path. However, there is a switch nearby that you can use to divert the train onto another track. On this track, there is only one person tied to the rails. What do you do: let the train continue on its course and kill five people, or pull the switch and save five lives at the cost of one?'),
     (2, 'You are a train conductor, and your train is about to hit a group of people on the tracks. Among them is your sibling. You have the option to divert the train to a different track, saving your sibling but endangering the lives of five strangers. What do you choose: prioritize your family and save your sibling, or prioritize the greater number of people and let the train proceed on its current path?'),
@@ -53,7 +53,7 @@ VALUES
     (4, 'A deadly disease is spreading rapidly, and a scientist has developed a potential vaccine. However, the vaccine needs to be tested on humans to ensure its effectiveness and safety. You have the option to volunteer yourself for the experiment, knowing it might be risky, or force someone else to participate against their will to potentially save many lives. What choice do you make, and how do you weigh the value of an individuals life against the greater good?');
 
 -- Insert sample data into the Choice table
-INSERT INTO Choice (ChoiceID, ChoiceValue, ChoiceText)
+INSERT INTO Choice (ChoiceID, choice_value, choice_text)
 VALUES
     (1, 'A', 'let the train continue'),
     (2, 'B', 'save the 1 persons life'),

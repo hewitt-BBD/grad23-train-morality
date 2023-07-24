@@ -9,10 +9,10 @@ public class Users {
     @Column(name = "UserID")
     private Integer userId;
 
-    @Column(name = "Username", length = 255)
+    @Column(name = "username", length = 255)
     private String username;
 
-    @Column(name = "EmailAddress", length = 255)
+    @Column(name = "email_address", length = 255)
     private String emailAddress;
 
     public Users() {

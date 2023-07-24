@@ -9,7 +9,7 @@ public class QuestionBank {
     @Column(name = "QuestionID")
     private Integer questionId;
 
-    @Column(name = "QuestionText", length = 800)
+    @Column(name = "question_text", length = 800)
     private String questionText;
 
     public QuestionBank() {

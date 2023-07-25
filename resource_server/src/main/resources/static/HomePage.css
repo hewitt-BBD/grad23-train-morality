@@ -1,0 +1,25 @@
+body {
+	background-image: url("old_train.png");
+	background-color: #cccccc;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: "Courier New", monospace;
+}
+
+main {
+  padding: 40px;
+  text-align: center;
+  margin: 50px auto;
+  width: 40%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+	font-size: 1.25rem;
+	font-family: "Courier New", monospace;
+	font-weight: 800;
+}

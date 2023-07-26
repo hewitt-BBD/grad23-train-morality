@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @IdClass(QuestionChoiceId.class) // Composite primary key class (see below)
-@Table(name = "questionchoice")
+@Table(name = "QuestionChoice")
 public class QuestionChoice {
 
     @Id

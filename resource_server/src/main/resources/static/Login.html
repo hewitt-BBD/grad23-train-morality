@@ -8,7 +8,9 @@
 </head>
 
 <body>
+
   <form class="container" id="form">
+
     <h2>Login</h2>
     <label for="username">Username</label>
     <input type="text" id="username" required />
@@ -16,7 +18,17 @@
     <input type="password" id="password" required />
     <button type="submit">Login</button>
     <p3>Dont have an account? <a href="Register.html">Register here</a></p3>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <div id="g_id_onload" data-client_id="46176890152-4kbfofiatkm269hsgik1l61fscgnd0a6.apps.googleusercontent.com"
+      data-auto_prompt="false" data-callback="onClickGoogleSignIn">
+    </div>
+    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+      data-shape="rectangular" data-logo_alignment="left">
+    </div>
+
   </form>
+  <script src="login.js"></script>
 </body>
 
 </html>

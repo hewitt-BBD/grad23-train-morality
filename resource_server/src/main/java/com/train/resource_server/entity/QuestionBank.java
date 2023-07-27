@@ -2,6 +2,9 @@ package com.train.resource_server.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="QuestionBank")
 public class QuestionBank {

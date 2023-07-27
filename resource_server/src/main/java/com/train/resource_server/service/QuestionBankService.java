@@ -53,4 +53,13 @@ public class QuestionBankService {
 
         return null;
     }
+
+    public List<QuestionWithChoices> getAllQuestionsAndChoices() {
+        List<QuestionBank> questions = questionBankRepository.findAll();
+        List<QuestionWithChoices> questionsAndChoices = new ArrayList<>();
+        for (QuestionBank question:questions) {
+            questionsAndChoices.add(getQuestionWithChoicesById(question.getQuestionId()));
+        }
+        return questionsAndChoices;
+    }
 }

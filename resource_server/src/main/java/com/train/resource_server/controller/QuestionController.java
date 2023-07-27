@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/questions")
 public class QuestionController {
@@ -24,6 +26,16 @@ public class QuestionController {
         QuestionWithChoices questionWithChoices = questionBankService.getQuestionWithChoicesById(questionId);
         if (questionWithChoices != null) {
             return ResponseEntity.ok(questionWithChoices);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<QuestionWithChoices>> getAllQuestions() {
+        List<QuestionWithChoices> questionsAndChoices = questionBankService.getAllQuestionsAndChoices();
+        if (questionsAndChoices!= null && questionsAndChoices.size() > 0) {
+            return ResponseEntity.ok(questionsAndChoices);
         } else {
             return ResponseEntity.notFound().build();
         }

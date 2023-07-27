@@ -32,9 +32,9 @@ nextBtn.addEventListener('click', () => {
 
   getCurrentSelection();
 
-  if (questionIndex < 4) {
+  if (questionIndex < 3) {
     questionIndex++;
-  } else if (questionIndex === 4) {
+  } else if (questionIndex === 3) {
 
     if (!Array.isArray(answers) || answers.length < 1) {
       alert('Missing answers');
@@ -54,57 +54,51 @@ nextBtn.addEventListener('click', () => {
   updateQuestion();
 });
 
-const questions = [
-  {
-    question: `You are standing near a lever that controls a trolley on a track. 
-  The trolley is heading toward five people who are unaware of its approach and unable to move. 
-  You have the option to pull the lever, diverting the trolley to a 
-  different track where only one person is standing`,
-    questionImg: 'question1.png',
-    options: ['Pull the lever, saving five lives but directly causing one death?',
-      'Do nothing, allowing the trolley to continue on its current track, resulting in five deaths?',],
-  },
-  {
-    question: `There are two trains on separate tracks, each with only one person aboard. 
-  One of the passengers is an innocent person, while the other is a dangerous 
-  criminal. You have control over the switch, and you can divert the train 
-  with the criminal to save the innocent person. However, if you do this, 
-  the criminal will escape and potentially harm others`,
-    questionImg: 'question2.jpg',
-    options: ['Divert the train to save the innocent person, allowing the criminal to escape?',
-      'Let the trains continue on their current tracks, risking the life of the innocent person to ensure the criminal is caught?',],
-  },
-  {
-    question: `Question 3 goes here`,
-    questionImg: 'question1.png',
-    options: ['Divert the train to save the innocent person, allowing the criminal to escape?',
-      'Let the trains continue on their current tracks, risking the life of the innocent person to ensure the criminal is caught?',],
-  },
-  {
-    question: `Question 4 goes here`,
-    questionImg: 'question2.jpg',
-    options: ['Divert the train to save the innocent person, allowing the criminal to escape?',
-      'Let the trains continue on their current tracks, risking the life of the innocent person to ensure the criminal is caught?',],
-  }];
+let questions = [];
+
+for (let i = 1; i <= 4; i++) {
+
+  fetch(`https://ec2-13-244-119-105.af-south-1.compute.amazonaws.com/questions/${i}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      questions.push({
+        ...data,
+        questionImg: `question${i}.png`,
+      });
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
+}
 
 function updateQuestion() {
 
-  if (questionIndex === 4) {
+  if (questionIndex === 3) {
     nextBtn.textContent = 'Submit';
   } else {
     nextBtn.textContent = 'Next';
   }
 
   const questionHeading = document.querySelector('#middle-section h1');
-  questionHeading.textContent = questions[questionIndex - 1].question;
+  questionHeading.textContent = questions[questionIndex - 1].question.questionText;
 
   const questionImage = document.querySelector('#middle-section img');
   questionImage.src = questions[questionIndex - 1].questionImg;
   questionImage.alt = `Question ${questionIndex} Image`;
 
   const questionOptions = document.querySelectorAll('.multiple-choice label');
-  const options = questions[questionIndex - 1].options;
+  const options = questions[questionIndex - 1].choices;
   questionOptions.forEach((label, index) => {
-    label.textContent = options[index];
+    label.textContent = options[index].choiceText;
   });
 }

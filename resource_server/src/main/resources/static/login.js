@@ -21,7 +21,7 @@ function onClickGoogleSignIn(googleUser) {
     .then(response => {
       if (response.ok) {
 
-        fetch(`http://localhost:8080/user/${payloadData.email}`, {
+        fetch(`/user/email/${payloadData.email}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ function onClickGoogleSignIn(googleUser) {
             if (!response.ok) {
               console.log('Doesnt exist');
 
-              fetch('http://localhost:8080/user', {
+              fetch('/user', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

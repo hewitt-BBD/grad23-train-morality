@@ -24,12 +24,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/id/{id}")
     public Users getUserById(@PathVariable int id) {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/user/email/{email}")
     public Users getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }

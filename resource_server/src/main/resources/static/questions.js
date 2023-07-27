@@ -4,7 +4,7 @@ const token = urlParams.get("token");
 let questions = [];
 
 function fetchQuestions() {
-  return fetch(`http://localhost:8080/questions`, {
+  return fetch(`/questions`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -47,9 +47,8 @@ const getEmailFromToken = (token) => {
   return payloadData.email;
 };
 
-function getId(email) {
-
-  fetch(`http://localhost:8080/user/${email}`, {
+async function getId(email, result) {
+  await fetch(`/user/email/${email}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -63,7 +62,9 @@ function getId(email) {
       return response.json();
     })
     .then(data => {
-      return data.emailAddress;
+      console.log(data);
+      result = data.userId;
+      return data.userID;
     })
     .catch(error => {
       console.error('Fetch error:', error);
@@ -72,7 +73,7 @@ function getId(email) {
 
 // Function to save a single answer
 function saveAnswer(answer) {
-  return fetch('http://localhost:8080/answers', {
+  return fetch('/answers', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -97,7 +98,9 @@ function saveAllAnswers() {
 
 
   Promise.all(
-    answers.map(answer => saveAnswer(answer))
+    answers.map(answer => {
+      saveAnswer(answer)
+    })
   )
     .then(responses => {
       console.log('Responses:', responses);
@@ -117,7 +120,8 @@ const answerChoice2 = document.getElementById('answer2');
 let questionIndex = 1;
 let answers = [];
 // need to get this from the token
-let testing = getId(getEmailFromToken(token));
+let testing; 
+getId(getEmailFromToken(token, testing));
 console.log(testing);
 
 function getCurrentSelection() {

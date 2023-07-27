@@ -147,3 +147,13 @@ create view Stats as
 	group by QB.QuestionID, QB.QuestionText;
     
 select * from stats;
+
+create view UserSelection as
+	SELECT 
+	QB.QuestionId as QuestionID,
+	C.ChoiceValue AS ChosenOption
+	FROM Answer A
+	join Choice C ON A.ChoiceID = C.ChoiceID
+	join Users U ON A.UserID = U.UserID
+	right join questionbank QB on A.QuestionId = QB.QuestionId
+;

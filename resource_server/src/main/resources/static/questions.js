@@ -1,3 +1,44 @@
+const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get("token");
+
+let questions = [];
+
+function fetchQuestion(questionId) {
+  return fetch(`https://ec2-13-244-119-105.af-south-1.compute.amazonaws.com/questions/${questionId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    });
+}
+
+Promise.all([
+  fetchQuestion(1),
+  fetchQuestion(2),
+  fetchQuestion(3),
+  fetchQuestion(4),
+])
+  .then(responses => {
+    responses.forEach((data, index) => {
+      questions.push({
+        ...data,
+        questionImg: `question${index + 1}.png`,
+      });
+    });
+
+    updateQuestion();
+  })
+  .catch(error => {
+    console.error('Fetch error:', error);
+  });
+
 const previousBtn = document.getElementById('previous-btn');
 const nextBtn = document.getElementById('next-btn');
 const answerChoice1 = document.getElementById('answer1');
@@ -13,8 +54,6 @@ function getCurrentSelection() {
   } else if (answerChoice2.checked) {
     answers[questionIndex] = 'Option 2';
   }
-
-  console.log(answers);
 }
 
 previousBtn.addEventListener('click', () => {
@@ -32,9 +71,9 @@ nextBtn.addEventListener('click', () => {
 
   getCurrentSelection();
 
-  if (questionIndex < 3) {
+  if (questionIndex < 4) {
     questionIndex++;
-  } else if (questionIndex === 3) {
+  } else if (questionIndex === 4) {
 
     if (!Array.isArray(answers) || answers.length < 1) {
       alert('Missing answers');
@@ -54,36 +93,9 @@ nextBtn.addEventListener('click', () => {
   updateQuestion();
 });
 
-let questions = [];
-
-for (let i = 1; i <= 4; i++) {
-
-  fetch(`https://ec2-13-244-119-105.af-south-1.compute.amazonaws.com/questions/${i}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      questions.push({
-        ...data,
-        questionImg: `question${i}.png`,
-      });
-    })
-    .catch(error => {
-      console.error('Fetch error:', error);
-    });
-}
-
 function updateQuestion() {
 
-  if (questionIndex === 3) {
+  if (questionIndex === 4) {
     nextBtn.textContent = 'Submit';
   } else {
     nextBtn.textContent = 'Next';

@@ -135,3 +135,15 @@ JOIN
     Choice C ON QC.ChoiceID = C.ChoiceID
 WHERE
     QB.QuestionID = 1;
+
+create view Stats as
+	SELECT
+	QB.QuestionId as QuestionID,
+	COUNT(CASE WHEN C.ChoiceValue = 'A' THEN 1 END) AS TotalOptionA,
+	COUNT(CASE WHEN C.ChoiceValue = 'B' THEN 1 END) AS TotalOptionB
+	FROM Answer A
+	join Choice C ON A.ChoiceID = C.ChoiceID
+	right join questionbank QB on A.QuestionId = QB.QuestionId
+	group by QB.QuestionID, QB.QuestionText;
+    
+select * from stats;

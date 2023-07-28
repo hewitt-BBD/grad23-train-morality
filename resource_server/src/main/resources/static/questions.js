@@ -3,8 +3,8 @@ const token = urlParams.get("token");
 
 let questions = [];
 
-function fetchQuestion(questionId) {
-  return fetch(`http://localhost:8080/questions/${questionId}`, {
+function fetchQuestions() {
+  return fetch(`/questions`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -16,32 +16,64 @@ function fetchQuestion(questionId) {
         throw new Error('Network response was not ok');
       }
       return response.json();
+    })
+    .then(data => {
+      questions = data;
+
+      for (let i = 0; i < questions.length; i++) {
+        questions[i]['questionImg'] = `question${i + 1}.png`;
+      }
+
+      updateQuestion();
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
     });
 }
 
-Promise.all([
-  fetchQuestion(1),
-  fetchQuestion(2),
-  fetchQuestion(3),
-  fetchQuestion(4),
-])
-  .then(responses => {
-    responses.forEach((data, index) => {
-      questions.push({
-        ...data,
-        questionImg: `question${index + 1}.png`,
-      });
-    });
+fetchQuestions();
 
-    updateQuestion();
+const getEmailFromToken = (token) => {
+  const [headerEncoded, payloadEncoded, signatureEncoded] = token.split(".");
+
+  const header = atob(headerEncoded.replace(/-/g, "+").replace(/_/g, "/"));
+
+  const payload = atob(payloadEncoded.replace(/-/g, "+").replace(/_/g, "/"));
+
+  const headerData = JSON.parse(header);
+
+  const payloadData = JSON.parse(payload);
+
+  return payloadData.email;
+};
+
+async function getId(email, result) {
+  await fetch(`/user/email/${email}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
   })
-  .catch(error => {
-    console.error('Fetch error:', error);
-  });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      result = data.userId;
+      return data.userID;
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
+};
 
 // Function to save a single answer
 function saveAnswer(answer) {
-  return fetch('http://localhost:8080/answers', {
+  return fetch('/answers', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,12 +81,12 @@ function saveAnswer(answer) {
     },
     body: JSON.stringify(answer),
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    });
 }
 
 // Save the answers when the user submits
@@ -66,16 +98,18 @@ function saveAllAnswers() {
 
 
   Promise.all(
-    answers.map(answer => saveAnswer(answer))
+    answers.map(answer => {
+      saveAnswer(answer)
+    })
   )
-  .then(responses => {
-    console.log('Responses:', responses);
-    alert('Answers saved successfully!');
-    window.location.href = 'Statistics.html';
-  })
-  .catch(error => {
-    console.error('Error saving answers:', error);
-  });
+    .then(responses => {
+      console.log('Responses:', responses);
+      alert('Answers saved successfully!');
+      window.location.href = 'Statistics.html';
+    })
+    .catch(error => {
+      console.error('Error saving answers:', error);
+    });
 }
 
 const previousBtn = document.getElementById('previous-btn');
@@ -86,14 +120,16 @@ const answerChoice2 = document.getElementById('answer2');
 let questionIndex = 1;
 let answers = [];
 // need to get this from the token
-let testing = 101;
+let testing; 
+getId(getEmailFromToken(token, testing));
+console.log(testing);
 
 function getCurrentSelection() {
   if (answerChoice1.checked) {
     answers[questionIndex] = {
       user: {
         userId: testing
-        },
+      },
       question: {
         questionId: questions[questionIndex - 1].question.questionId
       },
@@ -103,9 +139,9 @@ function getCurrentSelection() {
     };
   } else if (answerChoice2.checked) {
     answers[questionIndex] = {
-        user: {
-          userId: testing
-        },
+      user: {
+        userId: testing
+      },
       question: {
         questionId: questions[questionIndex - 1].question.questionId
       },
